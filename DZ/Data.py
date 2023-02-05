@@ -1,45 +1,45 @@
-# a = int(input('Введите число:'))
-# a1, a = a % 10, a // 10
-# a2, a = a % 10, a // 10
-# a3, a = a % 10, a // 10
-#
-# print(a3)
-# print(a2)
-# print(a1)
-# print(a1 + a2 + a3)
+a = int(input('Введите число:'))
+a1, a = a % 10, a // 10
+a2, a = a % 10, a // 10
+a3, a = a % 10, a // 10
 
-# a = int(input('Введите первую сторону треугольника: '))
-# b = int(input('Введите вторую сторону треугольника: '))
-# c = int(input('Введите третью сторону треугольника: '))
-#
-# if a == b and a == c:
-#     print('Треугольник равносторонний')
-# elif a == b or a == c or b == c:
-#     print('Треугольник равнобедренный')
-# else: print('Треугольник разносторонний')
+print(a3)
+print(a2)
+print(a1)
+print(a1 + a2 + a3)
 
-# a = input('Введите число 1 ')
-# b = input('Введите число 2 ')
-#
-# try:
-#     c = int(a) + int(b)
-# except ValueError:
-#     print(f'Rresult: {a + b}')
-# else:
-#     print(f'Rresult: {c}')
+a = int(input('Введите первую сторону треугольника: '))
+b = int(input('Введите вторую сторону треугольника: '))
+c = int(input('Введите третью сторону треугольника: '))
 
-# b = 1
-# c = 1
-# while True:
-#     a = int(input('Введите число: '))
-#     if a < 0:
-#         b = b * a
-#     if a > 0:
-#         c = c * a
-#     if a == 0:
-#         print(f'Произведение положительных: {c}')
-#         print(f'Произведение отрицательных: {b}')
-#         break
+if a == b and a == c:
+    print('Треугольник равносторонний')
+elif a == b or a == c or b == c:
+    print('Треугольник равнобедренный')
+else: print('Треугольник разносторонний')
+
+a = input('Введите число 1 ')
+b = input('Введите число 2 ')
+
+try:
+    c = int(a) + int(b)
+except ValueError:
+    print(f'Rresult: {a + b}')
+else:
+    print(f'Rresult: {c}')
+
+b = 1
+c = 1
+while True:
+    a = int(input('Введите число: '))
+    if a < 0:
+        b = b * a
+    if a > 0:
+        c = c * a
+    if a == 0:
+        print(f'Произведение положительных: {c}')
+        print(f'Произведение отрицательных: {b}')
+        break
 
 a = int(input('Введите число: '))
 
@@ -441,3 +441,80 @@ while True:
 
 with open(file='output.txt', mode='w', encoding='UTF-8') as out:
     out.write(c)
+
+#=============================================
+from random import randint
+mas = [randint(0, 30) for i in range(10)]
+print(mas)
+
+def nums(mas_f):
+    count = 0
+    for i in range(len(mas_f)):
+        for j in range(i + 1, len(mas_f)):
+            if mas_f[i] == mas_f[j] and i < j:
+                count += 1
+    return count
+
+print(nums(mas))
+
+#============================
+
+from random import randint
+mas = [randint(0, 30) for i in range(10)]
+print(mas)
+
+def nums(mas_f):
+    sp = []
+    for i in range(len(mas_f)):
+        count = 0
+        for j in range(len(mas_f)):
+            if mas_f[i] > mas_f[j]:
+                count += 1
+        sp.append(count)
+    return sp
+
+print(nums(mas))
+
+#===========================================
+
+from random import randint
+
+matrix = []
+m, n = 3, 3
+
+for i in range(m):
+    matrix.append([])
+    for j in range(n):
+        matrix[i].append(randint(1, 10))
+
+print(matrix)
+def nums(mas_f):
+    sp = []
+    str = len(mas_f[0])
+    stb = len(mas_f)
+    for i in range(str) :
+        a = min(mas_f[i])
+        b = 0
+        for j in range(stb):
+            if b < mas_f[j][i]:
+                b = mas_f[j][i]
+        if b == a:
+            sp.append(b)
+    return sp
+
+print(nums(matrix))
+
+#=====================================================
+mas = ['cjajcaj5', 'ada', '3', '7', '000', 'kjdjs']
+print(mas)
+def mas_f(mas_fun):
+    result = 0
+    for i in mas_fun:
+        if i.isdigit():
+           if result < int(i):
+               result = int(i)
+        elif result < len(i):
+            result = len(i)
+    return result
+
+print(mas_f(mas))
