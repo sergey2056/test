@@ -518,3 +518,115 @@ def mas_f(mas_fun):
     return result
 
 print(mas_f(mas))
+
+#=========================================================
+class Fraction:
+    def __init__(self, numerator: int = 0, denominator: int = 1):
+        self.numerator = numerator
+        self.denominator = denominator
+
+    def reset(self):
+        self.numerator = int(input('Введите новый числитель: '))
+        self.denominator = int(input('Введите новый знаменатель: '))
+
+    def sum(self, another: 'Fraction'):
+        shared_denom = self.denominator * another.denominator
+        shared_num = self.numerator * another.denominator + \
+                     another.numerator * self.denominator
+        i = 1
+        while i < min(shared_num, shared_denom):
+            if shared_num % i == 0 and shared_denom % i == 0:
+                shared_num //= i
+                shared_denom //= i
+                i = 1
+            i += 1
+        return Fraction(shared_num, shared_denom)
+
+a = Fraction(3, 4)
+b = Fraction(7, 8)
+print(b)
+c = a.sum(b)
+print(c.numerator, c.denominator)
+
+class Human:
+    __counter = 0
+    def __init__(self, full_name: str, age: int, number: int, city: str, country: str, adress: str):
+        self.full_name = full_name
+        self.age = age
+        self.number = number
+        self.city = city
+        self.country = country
+        self.adress = adress
+        Human.__counter += 1
+    def show_info(self):
+            print(f'\nФИО: {self.full_name},\n'
+                  f'Возраст: {self.age},\n'
+                  f'Телефон: {self.number},\n'
+                  f'Город: {self.city},\n'
+                  f'Страна: {self.country},\n'
+                  f'Адрес: {self.adress}\n')
+    def change_info(self):
+            self.full_name = input('Введите ваше ФИО: ')
+            self.age = int(input('Введите ваш возраст: '))
+            self.number = int(input('Введите ваш номер телефона: '))
+            self.city = input('Введите ваш город: ')
+            self.country = input('В какой стране вы проживаете: ')
+            self.adress = input('Назовите ваш адрес: ')
+
+    @staticmethod
+    def get_counter():
+        return Human.__counter
+
+p = Human('Фио', 35, +77777777777,'Москва','Россия','Street')
+p.show_info()
+print(Human.get_counter())
+
+class square:
+    __count = 0
+    @staticmethod
+    def get_square_area(a):
+        b = a * a
+        square.__count += 1
+        return b
+    @staticmethod
+    def get_square_rectangle(a, b):
+        c = a * b
+        square.__count += 1
+        return c
+    @staticmethod
+    def get_count():
+        return square.__count
+    @staticmethod
+    def get_square_rhomb(a, h):
+        s = a * h
+        return s
+
+print(square.get_square_area(5))
+print(square.get_square_rectangle(5, 2))
+print(square.get_square_rhomb(5, 10))
+print(square.get_count())
+
+class number:
+    __count = 0
+    @staticmethod
+    def get_max(a, b, c, d):
+        s = max(a, b, c, d)
+        return s
+    @staticmethod
+    def get_min(a, b, c, d):
+        s = min(a, b, c, d)
+        return s
+    @staticmethod
+    def get_arithmetic_mean(a, b, c, d):
+        s = (a + b + c + d) / 4
+        return s
+    @staticmethod
+    def get_factorial(a, b, c, d):
+        s = a * b * c * d
+        return s
+
+
+print(number.get_max(1, 2, 3, 4))
+print(number.get_min(1, 2, 3, 4))
+print(number.get_arithmetic_mean(1, 2, 3, 4))
+print(number.get_factorial(1, 2, 3, 4))

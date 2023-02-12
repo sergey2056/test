@@ -5,6 +5,8 @@ class groundTransportation:
         self.motor_power = motor_power
         self.color = color
         self.max_speed = max_speed
+
+
     def print_data(self):
         print(f'\n    Название модели: {self.model_name}\n'
               f'    Мощьность мотора: {self.motor_power} л.с.\n'
@@ -25,10 +27,13 @@ class wheeledTransport(groundTransportation):
         print(f'    Клиренс: {self.clearance} мм\n'
               f'    Радиус колес: {self.wheel_radius} мм\n')
 
+
+
 class trackedVehicles(groundTransportation):
     def __init__(self, model_name, motor_power, color, max_speed, track: int):
         super().__init__(model_name, motor_power, color, max_speed)
         self.track = track
+
 
     def print_data(self):
         print('\nГусеничный транспорт: ')
@@ -42,11 +47,15 @@ class airCushionTransport(groundTransportation):
         super().__init__(model_name, motor_power, color, max_speed)
         self.pillow_height = pillow_height
 
+
     def print_data(self):
         print('\nTранспорт на воздушных подушках: ')
         groundTransportation.print_data(self)
         print(f'    Максимальная скорость: {self.max_speed} км/ч\n'
               f'    Высота воздушной подушки: {self.pillow_height} мм\n')
+
+
+
 
 w_tr = wheeledTransport('reno logan', 150, 'green', 180, 150, 15)
 
