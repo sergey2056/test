@@ -84,68 +84,58 @@ class converter:
     def get_inch():
         number = int(input('Введите значение для перевода в дюймы: '))
         data_type = input('Укажите меру длинны mm, sm, m: ')
-        if data_type == 'mm':
-            return number / 25.4
-        elif data_type == 'sm':
-            return number / 2.54
-        elif data_type == 'm':
-            return number / 0.254
+        return converter.conv_ing(number, data_type)
 
 
     @staticmethod
     def get_foot():
         number = int(input('Введите значение для перевода в футы: '))
         data_type = input('Укажите меру длинны mm, sm, m: ')
-        if data_type == 'mm':
-            return number / 304.8
-        elif data_type == 'sm':
-            return number / 30.48
-        elif data_type == 'm':
-            return number / 3.048
+        return converter.conv_ing(number, data_type)
+
 
     @staticmethod
     def get_yard():
         number = int(input('Введите значение для перевода в ярды: '))
         data_type = input('Укажите меру длинны mm, sm, m: ')
-        if data_type == 'mm':
-            return number / 914.4
-        elif data_type == 'sm':
-            return number / 91.44
-        elif data_type == 'm':
-            return number / 9.144
+        return converter.conv_ing(number, data_type)
+
 
     @staticmethod
     def get_mm():
         number = int(input('Введите значение для перевода в миллиметры: '))
         data_type = input('Укажите меру длинны i - inch, f - foot, y - yard: ')
-        if data_type == 'i':
-            return number * 25.4
-        elif data_type == 'f':
-            return number * 304.8
-        elif data_type == 'y':
-            return number * 914.4
+        return converter.conv_metric(number, data_type)
 
     @staticmethod
     def get_sm():
         number = int(input('Введите значение для перевода в сантиметры: '))
         data_type = input('Укажите меру длинны i - inch, f - foot, y - yard: ')
-        if data_type == 'i':
-            return number * 2.54
-        elif data_type == 'f':
-            return number * 30.48
-        elif data_type == 'y':
-            return number * 91.44
+        return converter.conv_metric(number, data_type)
 
     @staticmethod
     def get_m():
         number = int(input('Введите значение для перевода в метры: '))
         data_type = input('Укажите меру длинны i - inch, f - foot, y - yard: ')
-        if data_type == 'i':
-            return number * 0.254
-        elif data_type == 'f':
-            return number * 3.048
-        elif data_type == 'y':
-            return number * 9.144
+        return converter.conv_metric(number, data_type)
+
+    @staticmethod
+    def conv_ing(number_f, data_type_f):
+        if data_type_f == 'mm':
+            return number_f / 25.4
+        elif data_type_f == 'sm':
+            return number_f / 2.54
+        elif data_type_f == 'm':
+            return number_f / 0.254
+
+    @staticmethod
+    def conv_metric(number_f, data_type_f):
+        if data_type_f == 'i':
+            return number_f * 25.4
+        elif data_type_f == 'f':
+            return number_f * 304.8
+        elif data_type_f == 'y':
+            return number_f * 914.4
 
 print(converter.get_inch())
 print(converter.get_mm())
