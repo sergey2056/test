@@ -630,3 +630,175 @@ print(number.get_max(1, 2, 3, 4))
 print(number.get_min(1, 2, 3, 4))
 print(number.get_arithmetic_mean(1, 2, 3, 4))
 print(number.get_factorial(1, 2, 3, 4))
+
+#========================================================
+class ShoppingCard():
+    def __init__(self, item=None, price=None, quantity=None):
+        if item is None:
+            self.item = []
+        if price is None:
+            self.price = []
+        if quantity is None:
+            self.quantity = []
+
+    def add_item(self, a, b, c):
+        self.item.append(a)
+        self.price.append(b)
+        self.quantity.append(c)
+
+    def get_total_price(self):
+        result = 0
+        for i in range(len(self.item)):
+            result += self.price[i] * self.quantity[i]
+        return result
+
+    def list_all_item(self):
+        for i in range(len(self.item)):
+            print(f'{self.item[i]} ==> {self.quantity[i]}.шт')
+
+    def remove_item(self, a, b):
+        c = self.item.index(a)
+        if b >= self.quantity[c]:
+            self.item.pop(c)
+            self.price.pop(c)
+            self.quantity.pop(c)
+        else:
+            self.quantity[c] = self.quantity[c] - b
+
+my_card = ShoppingCard()
+my_card.add_item('Творог', 100, 1)
+my_card.add_item('Молоко', 50, 2)
+my_card.add_item('Яйца', 100, 1)
+print(my_card.get_total_price())
+my_card.remove_item('Молоко', 1)
+print(my_card.get_total_price())
+my_card.remove_item('Яйца', 2)
+print(my_card.get_total_price())
+my_card.list_all_item()
+
+#======================================================
+class TextProcessor:
+    def __init__(self, fl):
+     #   self.file = open(fl, 'r', encoding='utf-8')
+     self.fl = fl
+     with open(file=self.fl, mode='r', encoding='utf-8') as f:
+         self.file = f.read()
+
+    def count_sentences(self):
+        a = self.file.count('.')
+        return a
+
+    def replaceText(self, old, new):
+        self.file = self.file.replace(old, new)
+
+
+    def reverseText(self):
+        self.file = self.file[::-1]
+        return self.file
+
+    def write_file(self):
+        with open(file=self.fl, mode='w', encoding='utf-8') as f:
+            f.write(self.file)
+
+tp = TextProcessor('example.txt')
+print(tp.count_sentences())
+tp.replaceText('установку', 'test')
+print(tp.reverseText())
+
+tp.write_file()
+
+# декоратор
+
+import time
+def timer(func):
+    def _wrapper(*args):
+        start = time.time()
+        result = func(*args)
+        print(result)
+        runtime = time.time() - start
+        print(f"{func.__name__} time {round(runtime, 5)} secs")
+        return result
+    return _wrapper
+
+@timer
+def calculation():
+    time.sleep(0.5)
+    return 42
+
+print(calculation())
+
+# =======================
+def cache(func):
+    m = {}
+    count = 0
+    def _wrapper(*args):
+        nonlocal count
+        if args in m:
+            return m[args]
+        else:
+            result = func(*args)
+            m[args] = result
+            count += 1
+            print(count)
+            return result
+    return _wrapper
+
+
+@cache
+def fibo(n):
+    if n == 0 or n == 1:
+        return 1
+    return fibo(n - 1) + fibo(n - 2)
+
+fibo(35)
+
+#============================================
+def limit(num):
+    def _decor(func):
+        m = {}
+        count = 0
+        def _wrapper(*args):
+            nonlocal count
+            count += 1
+            print(count)
+            if count >= num:
+                raise ValueError
+            else:
+                if args in m:
+                    return m[args]
+                else:
+                    result = func(*args)
+                    m[args] = result
+                    return result
+        return _wrapper
+    return _decor
+
+
+@limit(5)
+def fibo(n):
+    if n < 2: return n
+    return fibo(n - 1) + fibo(n - 2)
+
+fibo(35)
+
+#============================
+
+def dec(*arg):
+    def _decor(func):
+        def _wrapper(*args):
+            for i in range(len(args)):
+                print(type(i))
+                if type(args[i]) != arg[i]:
+                    print('Type error')
+                    raise ValueError
+            result = func(*args)
+            return result
+        return _wrapper
+    return _decor
+
+
+@dec(int, str)
+def f(n, a):
+    return n + a
+
+print(f(35, 10))
