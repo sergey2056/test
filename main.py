@@ -29,37 +29,37 @@ print(sub(-5, 2))
 #выполнения функции с определенным
 #колличеством попыток в случае сбоя
 
-import requests
-
-message = "Connected error."
-class MyCustomError(Exception):
-    def __init__(self, message):
-        super().__init__(message)
-
-
-
-def retry(num):
-    def _decor(func):
-        def _wrapper(*args):
-            count = 0
-            while count < num:
-                try:
-                    result = func(*args)
-                    return result
-                except:
-                    count += 1
-            else:
-                raise MyCustomError(message)
-
-        return _wrapper
-    return _decor
-
-@retry(3)
-def get_url(url):
-    response = requests.get(url)
-    response.raise_for_status()
-    return response.content
-
-url = "https://example.com"
-content = get_url(url)
-print('content', content)
+# import requests
+#
+# message = "Connected error."
+# class MyCustomError(Exception):
+#     def __init__(self, message):
+#         super().__init__(message)
+#
+#
+#
+# def retry(num):
+#     def _decor(func):
+#         def _wrapper(*args):
+#             count = 0
+#             while count < num:
+#                 try:
+#                     result = func(*args)
+#                     return result
+#                 except:
+#                     count += 1
+#             else:
+#                 raise MyCustomError(message)
+#
+#         return _wrapper
+#     return _decor
+#
+# @retry(3)
+# def get_url(url):
+#     response = requests.get(url)
+#     response.raise_for_status()
+#     return response.content
+#
+# url = "https://example.com"
+# content = get_url(url)
+# print('content', content)
