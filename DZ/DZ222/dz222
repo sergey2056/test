@@ -1,0 +1,93 @@
+#Создайте базовый класс Shape рисования плоских фигур.
+#Определите методы:
+#Show() - вывод на экран информации о фигуре;
+#Save() - сохранение фигуры в фаил;
+#Load() - считывание фигуры из файла.
+
+#Определите производные классы:
+#Squere - квадрат, который характеризуется координатами
+#левого верхнего угла и длинной стороны;
+#Rectangle - прямоугольник с заданными координатами
+# верхнего левого угла и размерами;
+# Circle - окружность с заданными координатами центра и радиусом;
+#Ellipse - эллипс с заданными координатами верхнего угла
+#описанного вокруг него прямоугольника со сторонами, параллельными осям
+#координат, и размерами этого прямоугольника.
+
+#Создайте список фигур и сохраните в файл, загрузите в другой список
+#и отобразите информацию о каждой фигуре
+
+import json
+
+class Shape:
+
+    def __init__(self):
+        self.file = {}
+
+    def show(self, type, obj):
+        print(f'\n{type}')
+        for key, val in (self.__dict__).items():
+            print(f'{key}: {val}')
+
+
+
+class Squere(Shape):
+
+    def __init__(self, x, y, a):
+        self.coordinate_x = x
+        self.coordinate_y = y
+        self.side_a = a
+
+    def show(self):
+        super().show('Квадрат', Squere(self.coordinate_x, self.coordinate_y, self.side_a))
+
+
+class Rectangle(Shape):
+
+    def __init__(self, x, y, a, b):
+        self.coordinate_x = x
+        self.coordinate_y = y
+        self.side_a = a
+        self.side_b = b
+
+    def show(self):
+        super().show('Прямоугольник', Rectangle(self.coordinate_x, self.coordinate_y, self.side_a, self.side_b))
+
+class Circle(Shape):
+
+    def __init__(self, x, y, r):
+        self.coordinate_x = x
+        self.coordinate_y = y
+        self.radius = r
+
+    def show(self):
+        super().show('Круг', Squere(self.coordinate_x, self.coordinate_y, self.radius))
+
+class Ellipse(Shape):
+
+    def __init__(self, x, y, a, b, a_el=0, b_el=0):
+        self.coordinate_x = x
+        self.coordinate_y = y
+        self.side_a = a
+        self.side_b = b
+        self.coordinate_x_el = self.coordinate_x + self.side_a / 2
+        self.coordinate_y_el = self.coordinate_y - self.side_b / 2
+
+
+    def show(self):
+        super().show('Эллипс', Ellipse(self.coordinate_x, self.coordinate_y, self.side_a, self.side_b, self.coordinate_x_el, self.coordinate_y_el))
+
+
+s = Squere(5, 6, 10)
+s.show()
+
+s1 = Rectangle(5, 6, 10, 15)
+s1.show()
+
+s2 = Circle(10, 15, 10)
+s2.show()
+
+s3 = Ellipse(20, 20, 10, 10)
+s3.show()
+
+print(15)
