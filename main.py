@@ -1,62 +1,62 @@
-#Создайте декоратор, который будет проверять
-#возвращаемое функцией значение, и если оно
-#меньше 0, будет заменять его на 0.
-#Таким образом, этот декоратор будет
-#"отменять" отрицательные числа
+#Создайте базовый класс Shape рисования плоских фигур.
+#Определите методы:
+#Show() - вывод на экран информации о фигуре;
+#Save() - сохранение фигуры в фаил;
+#Load() - считывание фигуры из файла.
 
-def positive_numbers(func):
-    def _wrapper(*args):
-        result = func(*args)
-        if result < 0:
-            result = 0
-        return result
-    return _wrapper
+#Определите производные классы:
+#Squere - квадрат, который характеризуется координатами
+#левого верхнего угла и длинной стороны;
+#Rectangle - прямоугольник с заданными координатами
+# верхнего левого угла и размерами;
+# Circle - окружность с заданными координатами центра и радиусом;
+#Ellipse - эллипс с заданными координатами верхнего угла
+#описанного вокруг него прямоугольника со сторонами, параллельными осям
+#координат, и размерами этого прямоугольника.
 
-@positive_numbers
-def calculation(a, b):
-    return a * b
+#Создайте список фигур и сохраните в файл, загрузите в другой список
+#и отобразите информацию о каждой фигуре
+
+class Shape:
+    def __init__(self):
+        self.a = 1
+
+    def show(self, x, y, a, b = 0, c = 0):
+        print(x, y, a)
+
+    # def save(self):
+    #
+    # def load(self):
+s = Shape()
+s.show(5, 2, 3)
+# class Squere(Shape):
+#     def __init__(self, x, y, a):
+#         super().__init__()
+#         self.coordinate_x = x
+#         self.coordinate_y = y
+#         self.side_length_a = a
 
 
-print(calculation(5, 2))
-print(calculation(-5, 2))
-print(sub(5, 2))
-print(sub(-5, 2))
-
-#Создайте декоратор для повторной попытки
-#выполнения функции с определенным
-#колличеством попыток в случае сбоя
-
-# import requests
+# class Father:
 #
-# message = "Connected error."
-# class MyCustomError(Exception):
-#     def __init__(self, message):
-#         super().__init__(message)
+#     def __init__(self, name, lastname):
+#         self.name = name
+#         self.lastname = lastname
+#
+#     def printname(self):
+#
+#         print(self.name, self.lastname)
+#
+# class Son(Father):
+#     def __init__(self, name, lastname):
+#         super().__init__(name, lastname)
+#
+# x = Son("Dev", "Bajaj")
+# x.printname()
 #
 #
+# x = Father("Anees", "Mulani")
+# x.printname()
 #
-# def retry(num):
-#     def _decor(func):
-#         def _wrapper(*args):
-#             count = 0
-#             while count < num:
-#                 try:
-#                     result = func(*args)
-#                     return result
-#                 except:
-#                     count += 1
-#             else:
-#                 raise MyCustomError(message)
-#
-#         return _wrapper
-#     return _decor
-#
-# @retry(3)
-# def get_url(url):
-#     response = requests.get(url)
-#     response.raise_for_status()
-#     return response.content
-#
-# url = "https://example.com"
-# content = get_url(url)
-# print('content', content)
+# # x = Son("Dev", "Bajaj")
+# # x.printname()
