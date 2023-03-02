@@ -26,6 +26,7 @@ class Shape:
 
     def show(self, obj):
         print(f'\n{self.types(obj)}:')
+        #print(f'\n{obj.__class__.__name__}:')
         if 'coordinate_x' in self.__dict__:
             print(f'coordinate x: {self.coordinate_x}')
         if 'coordinate_y' in self.__dict__:
