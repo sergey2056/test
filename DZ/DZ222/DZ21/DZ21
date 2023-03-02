@@ -1,0 +1,174 @@
+#Создайте базовый класс Shape рисования плоских фигур.
+#Определите методы:
+#Show() - вывод на экран информации о фигуре;
+#Save() - сохранение фигуры в фаил;
+#Load() - считывание фигуры из файла.
+
+#Определите производные классы:
+#Squere - квадрат, который характеризуется координатами
+#левого верхнего угла и длинной стороны;
+#Rectangle - прямоугольник с заданными координатами
+# верхнего левого угла и размерами;
+# Circle - окружность с заданными координатами центра и радиусом;
+#Ellipse - эллипс с заданными координатами верхнего угла
+#описанного вокруг него прямоугольника со сторонами, параллельными осям
+#координат, и размерами этого прямоугольника.
+
+#Создайте список фигур и сохраните в файл, загрузите в другой список
+#и отобразите информацию о каждой фигуре
+
+import json
+
+class Shape:
+
+    def __init__(self):
+        self.file = {}
+
+    def show(self, obj):
+        print(f'\n{self.types(obj)}:')
+        if 'coordinate_x' in self.__dict__:
+            print(f'coordinate x: {self.coordinate_x}')
+        if 'coordinate_y' in self.__dict__:
+            print(f'coordinate y: {self.coordinate_y}')
+        if 'side_a' in self.__dict__:
+            print(f'side a: {self.side_a}')
+        if 'side_b' in self.__dict__:
+            print(f'side b: {self.side_b}')
+        if 'radius' in self.__dict__:
+            print(f'radius: {self.radius}')
+        if 'coordinate_x_el' in self.__dict__:
+            print(f'coordinate x ellipse: {self.coordinate_x_el}')
+        if 'coordinate_y_el' in self.__dict__:
+            print(f'coordinate y ellipse: {self.coordinate_y_el}')
+
+    def load(self, name):
+        try:
+            name = name + '.txt'
+            with open(file=name, mode='r', encoding='utf-8') as f:
+                self.file = json.load(f)
+        except FileNotFoundError:
+            print('Такого файла не существует. Воспользуйтесь функцией сохранения файла')
+
+    def save(self, obj):
+        name = self.types(obj) + '.txt'
+        with open(file=name, mode='w', encoding='UTF-8') as f:
+            json.dump(obj.__dict__, f)
+
+    def types(self, obj):
+        c = str(obj.__class__)
+        return c[c.index('.')+1: len(c)-2]
+
+
+
+class Squere(Shape):
+
+    def __init__(self, x=0, y=0, a=0):
+        self.coordinate_x = x
+        self.coordinate_y = y
+        self.side_a = a
+        super().__init__()
+
+    def show(self):
+        super().show(Squere(self.coordinate_x, self.coordinate_y, self.side_a))
+
+    def save(self):
+        super().save(Squere(self.coordinate_x, self.coordinate_y, self.side_a))
+
+    def load(self, name):
+        super().load(name)
+        self.coordinate_x = self.file['coordinate_x']
+        self.coordinate_y = self.file['coordinate_y']
+        self.side_a = self.file['side_a']
+
+
+
+class Rectangle(Shape):
+
+    def __init__(self, x=0, y=0, a=0, b=0):
+        self.coordinate_x = x
+        self.coordinate_y = y
+        self.side_a = a
+        self.side_b = b
+
+    def show(self):
+        super().show(Rectangle(self.coordinate_x, self.coordinate_y, self.side_a, self.side_b))
+
+    def save(self):
+        super().save(Rectangle(self.coordinate_x, self.coordinate_y, self.side_a, self.side_b))
+
+    def load(self, name):
+        super().load(name)
+        self.coordinate_x = self.file['coordinate_x']
+        self.coordinate_y = self.file['coordinate_y']
+        self.side_a = self.file['side_a']
+        self.side_b = self.file['side_b']
+
+class Circle(Shape):
+
+    def __init__(self, x=0, y=0, r=0):
+        self.coordinate_x = x
+        self.coordinate_y = y
+        self.radius = r
+
+    def show(self):
+        super().show(Circle(self.coordinate_x, self.coordinate_y, self.radius))
+
+    def save(self):
+        super().save(Circle(self.coordinate_x, self.coordinate_y, self.radius))
+
+    def load(self, name):
+        super().load(name)
+        self.coordinate_x = self.file['coordinate_x']
+        self.coordinate_y = self.file['coordinate_y']
+        self.radius = self.file['radius']
+
+
+class Ellipse(Shape):
+
+    def __init__(self, x=0, y=0, a=0, b=0, a_el=0, b_el=0):
+        self.coordinate_x = x
+        self.coordinate_y = y
+        self.side_a = a
+        self.side_b = b
+        if self.side_a != 0 and self.side_b != 0:
+            self.coordinate_x_el = self.coordinate_x + self.side_a / 2
+            self.coordinate_y_el = self.coordinate_y - self.side_b / 2
+        else:
+            print('\nОшибка данных')
+
+
+    def show(self):
+        super().show(Ellipse(self.coordinate_x, self.coordinate_y, self.side_a, self.side_b, self.coordinate_x_el, self.coordinate_y_el))
+
+    def save(self):
+        super().save(Ellipse(self.coordinate_x, self.coordinate_y, self.side_a, self.side_b, self.coordinate_x_el, self.coordinate_y_el))
+
+    def load(self, name):
+        super().load(name)
+        self.coordinate_x = self.file['coordinate_x']
+        self.coordinate_y = self.file['coordinate_y']
+        self.side_a = self.file['side_a']
+        self.side_b = self.file['side_b']
+        self.coordinate_x_el = self.file['coordinate_x_el']
+        self.coordinate_x_el = self.file['coordinate_y_el']
+
+
+s = Squere()
+#s.show()
+# s.save()
+s.load('Squere')
+s.show()
+
+s1 = Rectangle()
+s1.load('Rectangle')
+s1.show()
+# s1.save()
+
+
+s2 = Circle(10, 15, 10)
+s2.load('Circle')
+# s2.save()
+s2.show()
+
+s3 = Ellipse(28, 15, 32, 18)
+s3.show()

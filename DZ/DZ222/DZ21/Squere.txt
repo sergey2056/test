@@ -1,0 +1,1 @@
+{"coordinate_x": 5, "coordinate_y": 6, "side_a": 10}
