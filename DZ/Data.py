@@ -802,3 +802,35 @@ def f(n, a):
     return n + a
 
 print(f(35, 10))
+
+#Генератор
+def my_gen():
+    for i in range(5):
+        yield i
+
+a = my_gen()
+print(next(a))
+print(next(a))
+
+#лямбда
+
+sp = ['aab', 'dfg', 'adf', 'ggg', 'nnn']
+print(sp)
+sp1 = lambda lst: [i for i in lst if 'a' in i]
+print(sp1(sp))
+
+#==============
+sp = [1, 2, 3, 4, 5]
+sp1 = []
+print(sp)
+sp1 = lambda lst: [i for i in lst if i % 2 == 0]
+print(sp1(sp))
+
+#===========================
+import math #корень числа
+
+sp = [1, 2, 3, 4, 5, 9, 16, 28, 20]
+print(sp)
+sp1 = lambda lst: [i for i in lst if math.sqrt(i) % 1 == 0]
+#sp1 = lambda lst: [i for i in lst if int((i**0.5))+(i**0.5) == x]
+print(sp1(sp))
