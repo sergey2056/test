@@ -7,69 +7,69 @@
 # <=,>=);
 #  ■ Пропорциональное изменение размеров окружности,
 # путем изменения ее радиуса (операции + - += -=).
-
-import math
-
-class Circle:
-
-    def __init__(self, radius):
-        self.radius = radius
-        self.last_func = None
-
-    def __add__(self, other):
-        return Circle(self.radius + other)
-
-    def __sub__(self, other):
-        return Circle(self.radius - other)
-
-    def __iadd__(self, other):
-        self.radius += other
-        return self.radius
-
-    def __isub__(self, other):
-        self.radius -= other
-        return self.radius
-
-    def __eq__(self, other):
-        return self.radius == other
-
-    def __lt__(self, other):
-        return self.circ_len(self.radius) < self.circ_len(other)
-
-    def __gt__(self, other):
-        return self.circ_len(self.radius) > self.circ_len(other)
-
-    def __le__(self, other):
-        return self.circ_len(self.radius) <= self.circ_len(other)
-
-    def __ge__(self, other):
-        return self.circ_len(self.radius) >= self.circ_len(other)
-
-    def circ_len(self, r):
-        return round((math.pi * 2 * r), 2)
-
-    def __str__(self):
-        if self.last_func:
-            return f"{self.radius} " \
-                   f"{self.last_func['operator']} " \
-                   f"{self.last_func['right']} = " \
-                   f"{self.radius + self.last_func['right'].radius}"
-        return f'{self.radius}'
-
-
-a = Circle(8)
-b = 5
-print(a + b)
-print(a - b)
-print(a < b)
-print(a <= b)
-print(a == b)
-print(a > b)
-print(a >= b)
-a += 1
-print(a)
-a -= 1
-print(a)
+#
+# import math
+#
+# class Circle:
+#
+#     def __init__(self, radius):
+#         self.radius = radius
+#         self.last_func = None
+#
+#     def __add__(self, other):
+#         return Circle(self.radius + other.radius)
+#
+#     def __sub__(self, other):
+#         return Circle(self.radius - other.radius)
+#
+#     def __iadd__(self, other):
+#         self.radius += other
+#         return self.radius
+#
+#     def __isub__(self, other):
+#         self.radius -= other
+#         return self.radius
+#
+#     def __eq__(self, other):
+#         return self.radius == other.radius
+#
+#     def __lt__(self, other):
+#         return self.circ_len(self.radius) < self.circ_len(other.radius)
+#
+#     def __gt__(self, other):
+#         return self.circ_len(self.radius) > self.circ_len(other.radius)
+#
+#     def __le__(self, other):
+#         return self.circ_len(self.radius) <= self.circ_len(other.radius)
+#
+#     def __ge__(self, other):
+#         return self.circ_len(self.radius) >= self.circ_len(other.radius)
+#
+#     def circ_len(self, r):
+#         return round((math.pi * 2 * r), 2)
+#
+#     def __str__(self):
+#         if self.last_func:
+#             return f"{self.radius} " \
+#                    f"{self.last_func['operator']} " \
+#                    f"{self.last_func['right']} = " \
+#                    f"{self.radius + self.last_func['right'].radius}"
+#         return f'{self.radius}'
+#
+#
+# a = Circle(8)
+# b = Circle(5)
+# print(a + b)
+# print(a - b)
+# print(a < b)
+# print(a <= b)
+# print(a == b)
+# print(a > b)
+# print(a >= b)
+# a += 1
+# print(a)
+# a -= 1
+# print(a)
 
 # Задание 2
 # Создайте класс Complex (комплексное число). Более
@@ -83,6 +83,7 @@ print(a)
 #
 #     def __init__(self):
 
+
 # Задание 3
 # Вам необходимо создать класс Airplane (самолет).
 # С помощью перегрузки операторов реализовать:
@@ -95,6 +96,68 @@ print(a)
 # ному количеству пассажиров на борту (операции >
 # <  <=  >=).
 
+# class Airplane:
+#
+#     def __init__(self, type, passenger, max_passenger):
+#         self.type = type
+#         self.passenger = passenger
+#         self.max_passenger = max_passenger
+#         self.last_func = None
+#
+#     def __eq__(self, other):
+#         return self.type == other.type
+#
+#     def __add__(self, other):
+#         return Airplane(self.type, self.passenger + other, self.max_passenger)
+#
+#     def __sub__(self, other):
+#         return Airplane(self.type, self.passenger - other, self.max_passenger)
+#
+#     def __iadd__(self, other):
+#         self.passenger += other
+#         return Airplane(self.type, self.passenger, self.max_passenger)
+#
+#     def __isub__(self, other):
+#         self.passenger -= other
+#         return Airplane(self.type, self.passenger, self.max_passenger)
+#
+#     def __lt__(self, other):
+#         return self.max_passenger < other.max_passenger
+#
+#     def __gt__(self, other):
+#         return self.max_passenger > other.max_passenger
+#
+#     def __le__(self, other):
+#         return self.max_passenger <= other.max_passenger
+#
+#     def __ge__(self, other):
+#         return self.max_passenger >= other.max_passenger
+#
+#     def __str__(self):
+#         if self.last_func:
+#             return f"{self.passenger} " \
+#                    f"{self.last_func['operator']} " \
+#                    f"{self.last_func['right']} = " \
+#                    f"{self.passenger + self.last_func['right'].passenger}"
+#         return f'{self.passenger}'
+#
+#
+# plane1 = Airplane('Ту-134', 50, 96)
+# plane2 = Airplane('Ту-154', 58, 338)
+#
+# print(plane1 == plane2)
+# plane1 = plane1 + 10
+# print(plane1)
+# plane1 += 15
+# print(plane1)
+# plane1 -= 5
+# print(plane1)
+# print(plane1 < plane2)
+# print(plane1 > plane2)
+# print(plane1 <= plane2)
+# print(plane1 >= plane2)
+
+
 # Задание 4
 # Создать класс Flat (квартира). Реализовать перегру-
 # женные операторы:
@@ -103,3 +166,39 @@ print(a)
 #  ■ Проверка на неравенство площадей квартир (опера-
 # ция !=);
 #  ■ Сравнение двух квартир по цене (операции >  <  <= >=).
+
+# class Flat:
+#
+#     def __init__(self, square, price):
+#         self.square = square
+#         self.price = price
+#
+#     def __eq__(self, other):
+#         return self.square == other.square
+#
+#     def __ne__(self, other):
+#         return self.square != other.square
+#
+#     def __lt__(self, other):
+#         return self.price < other.price
+#
+#     def __gt__(self, other):
+#         return self.price > other.price
+#
+#     def __le__(self, other):
+#         return self.price <= other.price
+#
+#     def __ge__(self, other):
+#         return self.price >= other.price
+#
+#
+# flaе1 = Flat(58, 1800000)
+# flat2 = Flat(80, 2800000)
+#
+# print(flaе1 == flat2)
+# print(flaе1 != flat2)
+#
+# print(flaе1 > flat2)
+# print(flaе1 < flat2)
+# print(flaе1 >= flat2)
+# print(flaе1 <= flat2)
