@@ -1,0 +1,187 @@
+import re
+import math
+
+class Data:
+
+    def __init__(self):
+        self.__day = 0
+        self.__month = 0
+        self.__year = 0
+        self.__number_month = 0
+        self.string = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь',
+                  'ноябрь', 'декабрь']
+
+    @property
+    def day(self):
+        return self.__day
+
+    @property
+    def month(self):
+        return self.__month
+
+    @property
+    def year(self):
+        return self.__year
+
+    @day.setter
+    def day(self, day_in):
+        if self.__number_month == 2:
+            if self.df() == 0:
+                if day_in > 0 and day_in < 29:
+                    self.__day = day_in
+                    return
+                else:
+                    raise ValueError('Дата вне диапазона. Проверьте год.')
+            elif day_in > 0 and day_in < 30:
+                self.__day = day_in
+                return
+            else:
+                raise ValueError('Дата вне диапазона. Проверьте год.')
+
+        if day_in > 0 and day_in < 32:
+            self.__day = day_in
+            return
+        else:
+            raise ValueError('Дата вне диапазона.')
+
+
+    @month.setter
+    def month(self, month_in):
+        a = self.checking_the_month(month_in)
+        if a > 0:
+            self.__number_month = a
+            self.__month = month_in
+            return
+        raise ValueError('Введены не верные данные. Пример "20.марта.2023"')
+
+    @year.setter
+    def year(self, year_in):
+        self.__year = year_in
+
+    @property
+    def days_in_month(self):
+        a = self.df()
+        if a == 1 and self.__number_month == 2:
+            return 29
+        else:
+            return self.number_of_days(self.__number_month)
+
+    @property
+    def  is_leap_year(self):
+        a = self.df()
+        if a == 1:
+            return (f'{self.__year} - високосный')
+        else:
+            return (f'{self.__year} - не високосный')
+
+    def next_day(self):
+        if self.__number_month < 12:
+            if self.__day < self.number_of_days(self.__number_month):
+                self.__day += 1
+            else:
+                self.__number_month += 1
+                self.__month = self.string[self.__number_month]
+                self.__day = 1
+        else:
+            if self.__day < self.number_of_days(self.__number_month):
+                self.__day += 1
+            else:
+                self.__number_month = 0
+                self.__month = self.string[self.__number_month]
+                self.__day = 1
+                self.__year += 1
+
+
+    def set_date(self, data):
+        day_out = 0
+        year_out = 0
+        mon_out = 0
+        a = re.split(r'[.,;\s]+', data, flags=re.IGNORECASE)
+        for i in a:
+            if i.isdigit():
+                if int(i) < 32:
+                    day_out = int(i)
+                else:
+                    year_out = int(i)
+            else:
+                mon_out = i
+
+        if day_out == 0 or year_out == 0 or mon_out == 0:
+            raise ValueError('Введены не верные данные. Пример "20.марта.2023"')
+        a = self.checking_the_month(mon_out)
+        if a > 0:
+            self.__number_month = a
+            self.__month = mon_out
+            self.__year = year_out
+            self.__day = day_out
+            return
+        raise ValueError('Введены не верные данные. Пример "20.марта.2023"')
+
+
+    def df(self):
+        if self.year % 4 != 0:
+            return 0
+        elif self.year % 100 == 0:
+            if self.year % 400 == 0:
+                return 1 #Если 1 то високосный
+            else:
+                return 0
+        else:
+            return 1
+
+    def checking_the_month(self, num):
+        count = 0
+        if str(num).isalpha():
+            for i in self.string:
+                count += 1
+                if num[:len(num) - 1] in i[:len(i) - 1] or num[:len(num) - 1] in i[:len(i)]:
+                    for j in self.string:
+                        if len(num) - 1 >= len(i) - 1:
+                            return count
+            return count
+        else:
+            return count
+
+
+    def number_of_days(self, num):
+        return 28 + (num + math.floor(num / 8)) % 2 + 2 % num + 2 * math.floor(1 / num)
+
+    def __str__(self):
+        return (f'Date: {self.__day}.{self.__month}.{self.__year}')
+
+
+
+
+date = Data()
+# date.set_date('07.марта.2023')
+# date.set_date('2023.марта.07')
+date.set_date('апреля.07.2023')
+print(date)
+print(date.days_in_month)
+print(date.is_leap_year)
+date.month = 'февраль'
+print(date)
+# date.year = -12
+# print(date.year)
+# print(date.is_leap_year)
+date.day = 28
+print(date)
+date.next_day()
+print(date)
+date.day = 29
+date.next_day()
+print(date)
+date.next_day()
+print(date)
+date.next_day()
+print(date)
+date.month = 'декабрь'
+print(date)
+date.day = 31
+print(date)
+date.next_day()
+print(date)
+print(date.is_leap_year)
+
+
+
