@@ -1,0 +1,52 @@
+#Напишите лимбда-функцию, которая принимает
+#строку и возвращает копию строки с
+#удаленными гласными
+
+sp = 'Напишите лимбда-функцию, которая принимает'
+print(sp)
+sp1 = lambda lst: "".join([i for i in lst if i.lower() not in 'ауоыиэяюёе'])
+print(sp1(sp))
+
+#Напишите лямбда-функцию, которая принимает
+#строку и возвращает True, если она
+#содержит только буквы алфавита, и False в противном случае
+
+sp = 'Напишителимбдафункциюкотораяприним1ает'
+print(sp)
+status = lambda lst: lst.isalpha()
+print(status(sp))
+
+#Напишите лямбда-функцию, которая принимает
+#список целых чисел и возвращает
+#произведение всех чисел
+
+from functools import reduce
+
+sp = [1, 2, 3, 4, 5]
+print(sp)
+composition = reduce(lambda a, b: a * b, sp)
+print(composition)
+
+#Напишите лямбда-функцию, которая принимает
+#список строк и возвращает новый
+#список, содержащий только строки,
+#являющиеся палиндромами
+
+sp = ['аба', 'апр', 'абба', 'ропрпрп', 'анна', 'тыофымло']
+print(sp)
+sp1 = lambda lst: [i for i in lst if i == i[::-1]]
+print(sp1(sp))
+
+#Напишите лямбда-функцию, которая принимает
+#число и возвращает True, если это
+#простое число. False в противном случае
+
+# Изначальное решение
+
+result = lambda number: (False if False in [(False if number % i == 0 else True) for i in range(2, (number//2)+1)] else True)
+print(result(13))
+
+# После подсказки))
+
+result = lambda number: not bool(len([1 for i in range(2, (number//2)+1) if number % i == 0]))
+print(result(11))

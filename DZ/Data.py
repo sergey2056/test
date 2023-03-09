@@ -834,3 +834,96 @@ print(sp)
 sp1 = lambda lst: [i for i in lst if math.sqrt(i) % 1 == 0]
 #sp1 = lambda lst: [i for i in lst if int((i**0.5))+(i**0.5) == x]
 print(sp1(sp))
+
+# ============= Очередь
+class Queue:
+
+    def __init__(self):
+        self.queue = []
+        self.full = 3
+
+    def enqueue(self, value):
+        if len(self.queue) != self.full:
+            self.queue.append(value)
+
+    def dequeue(self):
+        if len(self.queue) > 0:
+            self.queue.pop(0)
+        else:
+            raise Exception
+
+    def isEmpty(self):
+        if len(self.queue) > 0:
+            return False
+        return True
+
+    def isFull(self):
+        if len(self.queue) == self.full:
+            return True
+        return False
+
+    def show(self):
+        if len(self.queue) > 0:
+            print(self.queue)
+        else:
+            print('Очередь пуста')
+
+s = Queue()
+s.enqueue(5)
+s.enqueue(7)
+s.enqueue(8)
+s.enqueue(5)
+s.show()
+print(s.isEmpty())
+print(s.isFull())
+s.dequeue()
+s.dequeue()
+s.dequeue()
+print(s.isEmpty())
+s.show()
+
+# ========= очередь с преоритетом
+
+class PriorityQueue:
+
+    def __init__(self):
+        self.queue = []
+        self.full = 3
+
+    def enqueue(self, pr, value):
+        if len(self.queue) != self.full:
+            self.queue.append((pr, value))
+            self.queue.sort()
+        else:
+            raise Exception ('Очередь заполнена')
+
+    def dequeue(self):
+        if len(self.queue) > 0:
+            self.queue.pop(len(self.queue) - 1)
+        else:
+            raise Exception ('Очередь пуста')
+
+    def isEmpty(self):
+        return len(self.queue) > 0
+
+    def isFull(self):
+        return  len(self.queue) == self.full
+
+    def peek(self):
+        return self.queue[len(self.queue)-1][1]
+
+    def show(self):
+        if len(self.queue) > 0:
+            print(self.queue)
+        else:
+            print('Очередь пуста')
+
+s = PriorityQueue()
+s.enqueue(1, 5)
+s.enqueue(3, 7)
+s.enqueue(2, 3)
+print(s.peek())
+s.show()
+s.dequeue()
+s.show()
+print(s.peek())
