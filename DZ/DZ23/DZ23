@@ -50,3 +50,9 @@ print(result(13))
 
 result = lambda number: not bool(len([1 for i in range(2, (number//2)+1) if number % i == 0]))
 print(result(11))
+
+#Напишите лямбда-функцию, которая принимает
+#число и возвращает его факториал
+
+result = lambda a: 1 if a == 0 else a * result(a - 1)
+print(result(5))
